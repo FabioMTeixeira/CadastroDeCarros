@@ -6,45 +6,45 @@ using System.Data.SqlClient;
 
 namespace CadastroDeCarros.Controllers
 {
-    public class FuelController : Controller
+    public class ColorController : Controller
     {
         public ActionResult Index()
         {
-            List<FuelViewModel> fuels = new List<FuelViewModel>();
+            List<ColorViewModel> colors = new List<ColorViewModel>();
             string connectionString = @"Data Source=PCFABIO\MSSQLSERVER01;Initial Catalog=ShopCar;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
 
             {
                 connection.Open();
 
-                string sql = "SELECT * FROM Fuel";
+                string sql = "SELECT * FROM Color";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            FuelViewModel fuel = new FuelViewModel()
+                            ColorViewModel color = new ColorViewModel()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Descricao = reader["Description"].ToString(),
                                 Status = reader["Status"].ToString(),
                             };
 
-                            fuels.Add(fuel);
+                            colors.Add(color);
                         }
                     }
                 }
             }
 
-            return View(fuels);
+            return View(colors);
         }
 
         [HttpPost]
         public ActionResult Index(string search)
         {
 
-            List<FuelViewModel> fuels = new List<FuelViewModel>();
+            List<ColorViewModel> colors = new List<ColorViewModel>();
 
             string connectionString = @"Data Source=PCFABIO\MSSQLSERVER01;Initial Catalog=ShopCar;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -55,15 +55,15 @@ namespace CadastroDeCarros.Controllers
 
                 if (string.IsNullOrEmpty(search))
                 {
-                    sql = "SELECT * FROM Fuel";
+                    sql = "SELECT * FROM Color";
                 }
                 else if (search.ToLower() == "ativo" || search.ToLower() == "inativo")
                 {
-                    sql = "SELECT * FROM Fuel WHERE Status = @Search";
+                    sql = "SELECT * FROM Color WHERE Status = @Search";
                 }
                 else
                 {
-                    sql = "SELECT * FROM Fuel WHERE Description LIKE @Search";
+                    sql = "SELECT * FROM Color WHERE Description LIKE @Search";
                     search = "%" + search + "%";
                 }
 
@@ -77,20 +77,20 @@ namespace CadastroDeCarros.Controllers
                     {
                         while (reader.Read())
                         {
-                            FuelViewModel fuel = new FuelViewModel()
+                            ColorViewModel color = new ColorViewModel()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Descricao = reader["Description"].ToString(),
                                 Status = reader["Status"].ToString(),
                             };
 
-                            fuels.Add(fuel);
+                            colors.Add(color);
                         }
                     }
                 }
             }
 
-            return View(fuels);
+            return View(colors);
         }
 
 
@@ -102,7 +102,7 @@ namespace CadastroDeCarros.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(FuelViewModel model)
+        public ActionResult Create(ColorViewModel model)
         {
             if (model.CheckIfExists(model.Descricao))
             {
@@ -118,7 +118,7 @@ namespace CadastroDeCarros.Controllers
                 connectionString = @"Data Source=PCFABIO\MSSQLSERVER01;Initial Catalog=ShopCar;Integrated Security=True";
                 conn = new SqlConnection(connectionString);
                 {
-                    string sql = "INSERT INTO Fuel (Description, Status) VALUES (@Description, @Status)";
+                    string sql = "INSERT INTO Color (Description, Status) VALUES (@Description, @Status)";
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@Description", model.Descricao);
@@ -136,14 +136,14 @@ namespace CadastroDeCarros.Controllers
         }
         public ActionResult Edit(int id)
         {
-            FuelViewModel item = null;
+            ColorViewModel item = null;
             ViewBag.StatusList = new SelectList(new List<string>() { "Ativo", "Inativo" });
             string connectionString = @"Data Source=PCFABIO\MSSQLSERVER01;Initial Catalog=ShopCar;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
         
-                string sql = "SELECT * FROM Fuel WHERE Id = @Id";
+                string sql = "SELECT * FROM Color WHERE Id = @Id";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -152,7 +152,7 @@ namespace CadastroDeCarros.Controllers
                     {
                         if (reader.Read())
                         {
-                            item = new FuelViewModel()
+                            item = new ColorViewModel()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Descricao = reader["Description"].ToString(),
@@ -166,7 +166,7 @@ namespace CadastroDeCarros.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(FuelViewModel model)
+        public ActionResult Edit(ColorViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -175,7 +175,7 @@ namespace CadastroDeCarros.Controllers
                 {
                     connection.Open();
 
-                    string sql = "UPDATE Fuel SET Description = @Description, Status = @Status WHERE Id = @Id";
+                    string sql = "UPDATE Color SET Description = @Description, Status = @Status WHERE Id = @Id";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@Description", model.Descricao);
@@ -194,13 +194,13 @@ namespace CadastroDeCarros.Controllers
 
         public ActionResult Delete(int id)
         {
-            FuelViewModel item = null;
+            ColorViewModel item = null;
             string connectionString = @"Data Source=PCFABIO\MSSQLSERVER01;Initial Catalog=ShopCar;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string sql = "SELECT * FROM Fuel WHERE Id = @Id";
+                string sql = "SELECT * FROM Color WHERE Id = @Id";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -209,7 +209,7 @@ namespace CadastroDeCarros.Controllers
                     {
                         if (reader.Read())
                         {
-                            item = new FuelViewModel()
+                            item = new ColorViewModel()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Descricao = reader["Description"].ToString(),
@@ -230,7 +230,7 @@ namespace CadastroDeCarros.Controllers
             {
                 connection.Open();
 
-                string sql = "DELETE FROM Fuel WHERE Id = @Id";
+                string sql = "DELETE FROM Color WHERE Id = @Id";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
