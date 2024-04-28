@@ -1,0 +1,25 @@
+﻿@model CadastroDeCarros.Models.FuelViewModel
+
+@{
+    ViewData["Title"] = "Cadastro de Combustivel";
+}
+
+<h1>Cadastro de Combustivel</h1>
+
+<hr />
+@using (Html.BeginForm("Create", "Fuel", FormMethod.Post))
+{
+    <label for="Descricao">Descrição:</label>
+    <input type="text" id="Descricao" name="Descricao" />
+
+    <label for="Status">Status:</label>
+    @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.StatusList)
+
+    <input class = "btn btn-primary" type="submit" value="Enviar" />
+}
+
+<br />
+<div>
+    <a class="btn btn-danger" asp-action="Index">Voltar para lista</a>
+</div>
+
