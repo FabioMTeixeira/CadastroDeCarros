@@ -1,0 +1,29 @@
+﻿@model CadastroDeCarros.Models.ColorViewModel
+
+@{
+    ViewData["Title"] = "Editar Cor";
+}
+<h1>Editar Cor</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.Id)
+
+    <div>
+        @Html.LabelFor(model => model.Descricao)
+        @Html.EditorFor(model => model.Descricao)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Status)
+        @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.StatusList)
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Salvar" />
+}
+
+
+<div>
+    <a class="btn btn-danger" asp-action="Index">Voltar para Lista</a>
+</div>
+

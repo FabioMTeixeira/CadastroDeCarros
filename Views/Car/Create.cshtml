@@ -1,0 +1,60 @@
+﻿@model CadastroDeCarros.Models.CarViewModel
+
+@{
+    ViewData["Title"] = "Cadastro de Carro";
+}
+
+<h1>Cadastro de Carro</h1>
+
+<hr />
+@using (Html.BeginForm("Create", "Car", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="Plate" class="control-label">Placa</label>
+        <input type="text" id="Plate" name="Plate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Renavam" class="control-label">Renavam</label>
+        <input id="Renavam" name="Renavam" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="ChassisNumber" class="control-label">Número do Chassi</label>
+        <input id="ChassisNumber" name="ChassisNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="EngineNumber" class="control-label">Número do Motor</label>
+        <input id="EngineNumber" name="EngineNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Brand" class="control-label">Marca</label>
+        <input id="Brand" name="Brand" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Model" class="control-label">Modelo</label>
+        <input id="Model" name="Model" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="FuelId" class="control-label">Combustivel</label>
+        <select id="FuelId" name="FuelId" class="form-control" asp-items="ViewBag.Fuels"></select>
+    </div>
+    <div class="form-group">
+        <label for="ColorId" class="control-label">Cor</label>
+        <select id="ColorId" name="ColorId" class="form-control" asp-items="ViewBag.Colors"></select>
+    </div>
+    <div class="form-group">
+        <label for="YearFactory" class="control-label">Ano de Fabricação</label>
+        <input id="YearFactory" name="YearFactory" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Status" class="control-label">Name</label>
+        <select id="Status" name="Status" class="form-control" asp-items="ViewBag.StatusList"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+}
+
+<br />
+<div>
+    <a class="btn btn-danger" asp-action="Index">Voltar para lista</a>
+</div>
